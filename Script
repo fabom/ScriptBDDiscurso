@@ -1,0 +1,78 @@
+*Tablas*/
+
+create table asilo
+(nombrea varchar (80) primary key not null, direcciona varchar (100), telefonoa varchar (10),
+correoa varchar (80), aplicacionweb varchar (60));
+
+create table anciano
+(cedulaa varchar (10) primary key not null, nombre varchar (60), fechanacimiento date, fechainscripcion date,
+direccion varchar (100), estadocivil varchar (10), pais varchar (20), telefonofamiliar varchar (10), enfermedad varchar (50),
+hijos varchar (6), tallaropa varchar (15), observaciones varchar (300),nombreapk varchar (80),cedulaepk varchar(10),
+foreign key(nombreapk)references asilo(nombrea), foreign key(cedulaepk)references empleado(cedulae));
+
+
+create table empleado
+(cedulae varchar (10) primary key not null, nombree varchar (60), telefonoe varchar (10),
+fechanacimientoe date, correoe varchar (80), direccione varchar (100), cargo varchar (30), paise varchar (20),nombreapk varchar(80),
+foreign key(nombreapk)references asilo(nombrea));
+
+create table bodega
+(codigob varchar (10) primary key not null, nombreb varchar (20), categoria varchar (20), nombreapk varchar(80),
+foreign key(nombreapk)references asilo(nombrea));
+
+create table producto
+(codigop varchar (10) primary key not null, nombrep varchar (50), categoriap varchar (20),
+descripcion varchar (120), fechasalida date, fechaentrada date, nombrebodega varchar (20), 
+stock int, stockminimo int, estado varchar (20),cedulaapk varchar (10),codigobpk varchar(10),
+foreign key(cedulaapk)references anciano(cedulaa), foreign key(codigobpk)references bodega(codigob));
+
+
+/*Asignación de datos*/
+insert into anciano(cedulaa, nombre,direccion,estadocivil, fechanacimiento, fechainscripcion,pais, telefonofamiliar,enfermedad,hijos,tallaropa,observaciones,nombreapk,cedulaepk)values
+('1300644206','Ramon','calle 116 av 203','casado','1940-01-1','2020-12-2','Ecuador','0992580602','cancer','si','xs','Tiene que comer a la hora indicada por posible causa de gastritis','Cristodivino','1303141510'),
+('1300644222','Carlos','calle 23','casado','1939-05-1','2019-02-5','Venezuela','0995478653','alzheimer','si','xs','Es puntual a las citas del asilo','Crisredentor','1303141510'),
+('1303334443','Manuel','av 34','casado','1945-01-1','2016-04-8','Colombia','0564789573','sida','no','s','Es responsable en sus actividades','Cristodivino','1303141510'),
+('1307856439','Cecilia','av 21','soltera','1946-06-5','2015-11-18','Ecuador','0954676459','lupus','si','m','Le suele dar insomio','Cristodivino','1303141510'),
+('1308544671','Edgar','calle 5 av 14','soltero','1950-07-14','2018-12-9','Peru','0984568903','diabetes','si','xxxs','Necesita baston para caminar','Sagradocorazon','1303141510'),
+('1300647569','Mauricio','calle 45 av 300','casado','1955-03-30','2020-01-30','Ecuador','0982124343','asma','no','xxl','Tiene que tener el inhalador siempre','Crisredentor','1303141510'),
+('1303060704','Karla','san francisco y av 1','casada','1957-12-12','2019-06-15','Ecuador','0985675768','cancer','no','l','Sus medicinas no hay en el asilo','Corazongrande','1303141510'),                                                                                                                                                                                                                                   
+('1302377437','Lenin','calle ricaurte diagonal','soltero','1956-11-12','2017-05-3','Venezuela','0994560976','asma','si','s','Si huele a polvo le da crisis','Cristodivino','1303141510'),
+('1309046783','Monserate','av 205 y calle 18','soltera','1946-12-28','2014-11-25','Ecuador','0988790603','diabetes','no','xs','Solo debe comer pequeñas cantidades','Sagradocorazon','1303141510'),
+('1309956783','Carolina','av 408 y calle 250','casada','1955-02-1','2013-10-29','Ecuador','0981230984','alzheimer','si','xxs','Es anciosa con el dulce','Corazongrande','1303141510');
+insert into producto(codigop, nombrep, categoriap, descripcion, fechasalida, fechaentrada, nombrebodega, stock, stockminimo, estado, cedulaapk,codigobpk)values
+('101','omeprazol','medicina','antiacido y antiulcerosos','2020-03-1','2020-02-1','farmacia',200,50,'buena','1300644206','2'),
+('102','carne','alimento','ricos en proteinas','2020-01-4','2020-01-3','porcino',220,75,'excelente','1300644222','1'),
+('103','camisas','ropa','vestimenta superior','2020-03-2','2020-03-1','audax',250,95,'buena','1303334443','6'),
+('104','lorataina','medicina','para la alergia','2020-03-2','2020-02-2','farmacid',100,40,'buena','1307856439','2'),
+('105','salbutamol','medicina','medicamento para el asma','2020-03-5','2020-02-3','farma',150,45,'buena','1300644206','8'),
+('106','pescado','alimento','predomina proteinas, vitaminas y minerales','2020-01-5','2020-01-4','criollo',230,79,'excelente','1300647569','10'),
+('107','pantalones','ropa','vestimenta inferior','2020-03-3','2020-03-2','viste',240,105,'regular','1300644222','9'),
+('108','ibuprofeno','medicina','para la fiebre','2020-03-6','2020-02-4','farmacid',160,55,'excelente','1302377437','2'),
+('109','frutas','alimento','ricos en vitaminas, minerales,fibras','2020-01-3','2020-01-2','porcino',180,60,'buena','1300647569','1'),
+('110','omeprazol','medicina','para la acidez de estomago','2020-03-7','2020-02-5','farmacus',80,20,'buena','1300644222','5');
+
+insert into asilo(nombrea, direcciona,telefonoa,correoa,aplicacionweb)values
+('Cristodivino','calle 120 av 201','052920521','cristodivino@gmail.com','www.asilocristodivino.com'),
+('Crisredentor','frente almacen boss','052867543','cristoredentor@outlook.com','www.asilocristodivino.com'),
+('Sagradojesus','malecon y calle 263','052945321','sagradoj@gmail.com','www.asilocristodivino.com'),
+('Corazongrande','av 10 y calle 33','052756476','corazongrande@outlook.com','www.asilocristodivino.com'),
+('Sagradocorazon','frente paseo shopping','052920569','sagradocorazon@gmail.com','www.asilocristodivino.com');
+insert into empleado(cedulae,nombree,telefonoe,paise,cargo,direccione,correoe,fechanacimientoe,nombreapk)values
+('1310644206','Fabricio','0992570590','Ecuador','chef','calle 45 y av 19','fabricio24 @gmail.com','1990/05/1','Cristodivino'),
+('1310644222','Francisco','0981199235','Venezuela','bodeguero','calle 320 diagonal mall','francx @gmail.com','1985/01/1','Crisredentor'),
+('1315937697','Nicole','0998855432','Venezuela','limpiadora','av 21 entre calles 10 y 11','nico1996 @outlook.com','1994/06/5','Sagradojesus'),
+('1303324439','Felipe','0981344334','Ecuador','sirve alimentos','calle 70 y av 46','felipeem @gmail.com','1980/07/14','Corazongrande'),
+('1303344431','Ramona','0991019803','Ecuador','bodeguera','av 310 y calle 17','ramonitamz @outlook.com','1984/03/30','Sagradocorazon'),
+('1303141510','Luis','0987890121','Ecuador','secretario','calle 400 y av 30','luisvm@outlook.com','1985/05/15','Cristodivino');
+
+insert into bodega(codigob,nombreb,categoria,nombreapk)values
+('1','porcino','alimento','Cristodivino'),
+('2','farmacid','medicina','Crisredentor'),
+('3','printextil','ropa','Sagradojesus'),
+('4','chonero','alimento','Corazongrande'),
+('5','farmacus','medicina','Sagradocorazon'),
+('6','auxdax','ropa','Cristodivino'),
+('7','espacirico','alimento','Crisredentor'),
+('8','farma','medicina','Sagradojesus'),
+('9','viste','ropa','Corazongrande'),
+('10','criollo','alimento','Cristodivino');
